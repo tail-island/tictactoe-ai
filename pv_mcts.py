@@ -16,7 +16,10 @@ def predict(model, state):
     x = to_x(state).reshape(1, 3, 3, 2)
     y = model.predict(x, batch_size=1)
 
-    return y[0][0][list(state.legal_actions)], y[1][0][0]
+    policies = y[0][0][list(state.legal_actions)]
+    policies /= sum(policies) if sum(policies) else 1
+
+    return policies, y[1][0][0]
 
 
 def pv_mcts_scores(model, evaluate_count, state):

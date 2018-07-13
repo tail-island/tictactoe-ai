@@ -41,19 +41,20 @@ def main():
 
         return total_point / 100
 
-    pv_mcts_next_action = pv_mcts_next_action_fn(load_model(last(sorted(Path('./model').glob('*.h5')))))
+    for p in sorted(Path('./model').glob('*.h5')):
+        pv_mcts_next_action = pv_mcts_next_action_fn(load_model(p))
 
-    nega_alpha_correctness = test_correctness(nega_alpha_next_action)
-    print('{:4.1f}/11 = {:.2f} nega_alpha'.format(nega_alpha_correctness, nega_alpha_correctness / 11))
+        nega_alpha_correctness = test_correctness(nega_alpha_next_action)
+        print('{:4.1f}/11 = {:.2f} nega_alpha'.format(nega_alpha_correctness, nega_alpha_correctness / 11))
 
-    pv_mcts_correctness = test_correctness(pv_mcts_next_action)
-    print('{:4.1f}/11 = {:.2f} pv_mcts'.format(pv_mcts_correctness, pv_mcts_correctness / 11))
+        pv_mcts_correctness = test_correctness(pv_mcts_next_action)
+        print('{:4.1f}/11 = {:.2f} pv_mcts'.format(pv_mcts_correctness, pv_mcts_correctness / 11))
 
-    monte_carlo_tree_search_correctness = sum(map(lambda _: test_correctness(monte_carlo_tree_search_next_action), range(100))) / 100
-    print('{:4.1f}/11 = {:.2f} monte_carlo_tree_search'.format(monte_carlo_tree_search_correctness, monte_carlo_tree_search_correctness / 11))
+        monte_carlo_tree_search_correctness = sum(map(lambda _: test_correctness(monte_carlo_tree_search_next_action), range(100))) / 100
+        print('{:4.1f}/11 = {:.2f} monte_carlo_tree_search'.format(monte_carlo_tree_search_correctness, monte_carlo_tree_search_correctness / 11))
 
-    print(test_algorithm((pv_mcts_next_action, monte_carlo_tree_search_next_action)))
-    print(test_algorithm((monte_carlo_tree_search_next_action, pv_mcts_next_action)))
+        print(test_algorithm((pv_mcts_next_action, monte_carlo_tree_search_next_action)))
+        print(test_algorithm((monte_carlo_tree_search_next_action, pv_mcts_next_action)))
 
 
 if __name__ == '__main__':
