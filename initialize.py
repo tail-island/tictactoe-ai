@@ -48,7 +48,7 @@ def computational_graph():
     return rcompose(conv(WIDTH),
                     rcompose(*repeatedly(residual_block, HEIGHT)),
                     global_average_pooling(),
-                    ljuxt(rcompose(dense(9), softmax()),
+                    ljuxt(rcompose(dense(9)),
                           rcompose(dense(1), tanh())))
 
 
