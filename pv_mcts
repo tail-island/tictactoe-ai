@@ -2,7 +2,7 @@
 
 python initialize.py
 
-for i in `seq 1 10` ; do
+for i in `seq 1 100` ; do
     python self_play.py
     python train.py
     python evaluate.py

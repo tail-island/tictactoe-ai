@@ -25,7 +25,7 @@ def main():
     model_path = last(sorted(Path('./model/candidate').glob('*.h5')))
     model = load_model(model_path)
 
-    model.compile(loss=['categorical_crossentropy', 'mean_squared_error'], optimizer='adam')
+    model.compile(loss=['mean_squared_error', 'mean_squared_error'], optimizer='adam')
     model.fit(xs, [y_policies, y_values], 100, 100,
               callbacks=[LearningRateScheduler(partial(getitem, tuple(take(100, concat(repeat(0.001, 50), repeat(0.0005, 25), repeat(0.00025))))))])
 
