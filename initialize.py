@@ -29,9 +29,6 @@ def computational_graph():
     def relu():
         return Activation('relu')
 
-    def softmax():
-        return Activation('softmax')
-
     def tanh():
         return Activation('tanh')
 

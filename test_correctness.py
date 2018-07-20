@@ -41,12 +41,6 @@ def main():
 
         return total_point / 100
 
-    for p in sorted(Path('./model').glob('*.h5')):
-        pv_mcts_next_action = pv_mcts_next_action_fn(load_model(p))
-
-        pv_mcts_correctness = test_correctness(pv_mcts_next_action)
-        print('{:4.1f}/11 = {:.2f} pv_mcts'.format(pv_mcts_correctness, pv_mcts_correctness / 11))
-
     pv_mcts_next_action = pv_mcts_next_action_fn(load_model(last(sorted(Path('./model').glob('*.h5')))))
 
     nega_alpha_correctness = test_correctness(nega_alpha_next_action)
